@@ -8,6 +8,10 @@ package ca_2_carlos_de_oliveira_2024469;
  *
  * @author carlo
  */
-public class Function {
-    
+public enum Function {
+    Director,
+    Coordinator,
+    Team_Lead,
+    Software_Eng,
+    Assistant,
 }
