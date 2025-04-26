@@ -6,7 +6,7 @@ package ca_2_carlos_de_oliveira_2024469;
 
 /**
  *
- * @author carlo
+ * @author Carlos Eduardo Alves de Oliveira | n.º 2024 469
  */
 public class CA_2_Carlos_de_Oliveira_2024469 {
 
