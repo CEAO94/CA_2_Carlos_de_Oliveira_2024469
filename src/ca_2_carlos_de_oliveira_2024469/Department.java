@@ -15,5 +15,4 @@ public enum Department {
     Human_Resources,
     Technical_Support,
     Customer_Service,
-            
 }
