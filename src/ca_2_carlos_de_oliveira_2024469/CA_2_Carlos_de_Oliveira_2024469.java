@@ -98,42 +98,46 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         } while (menuOpt != 5);
     }
 
+    // METHOD TO READ FROM THE FILE AND GENERATE/STORE THE LIST
     public static void loadFile() {
+
+        // Will read the File
         String fileName = "Applicants_Form.txt";
+
+        // From the file, will read line by line, and random associate a Function and a Department for each name (from the class Employee)
         try (Scanner fileRead = new Scanner(new File(fileName))) {
             while (fileRead.hasNextLine()) {
                 String name = fileRead.nextLine().trim();
                 if (!name.isEmpty()) {
                     Function jobRole = Function.values()[random.nextInt(Function.values().length)];
                     Department dept = Department.values()[random.nextInt(Department.values().length)];
+
+                    // Will read/add to the ArrayList
                     ListEmployee.add(new Employee(name, jobRole, dept));
                 }
             }
             System.out.println("File read succesfully");
+
+            // Exception in case File not found. 
         } catch (Exception e) {
             System.out.println("File not found.");
         }
     }
-        
-        public static void sortList() {
-        
-        }
-        
-        public static void searchEmployee() {
-        
-        }
-        
-        public static void addEmployee() {
-        
-        }
-        
-        public static void randomEmployee() {
-        
-        }
-        
+    
+    public static void sortList() {
 
     }
 
- 
-    
+    public static void searchEmployee() {
 
+    }
+
+    public static void addEmployee() {
+
+    }
+
+    public static void randomEmployee() {
+
+    }
+
+}
