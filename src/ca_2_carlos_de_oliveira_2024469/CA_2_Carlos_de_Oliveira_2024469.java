@@ -66,13 +66,41 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
                     //Based on the entered value, will acess the array (enum) to return one of the options
                     Menu option = Menu.values()[menuOpt - 1];
                     switch (option) {
-                        case SORT: {
-                            sortList();
+                        case SORT: { //INSERT SORT to sort the list
+                            sortList(); //Sorted and limited to 20 first employees. 
+
+                            System.out.println("Employee list sorted (First 20):");
+                            /*Looping will get the sorted list from InsertionSort Method and return,
+                            line by line, the first 20 names.*/
+                            for (int i = 0; i < Math.min(20, ListEmployee.size()); i++) {
+                                System.out.println((1 + i) + ". " + ListEmployee.get(i));
+                                System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - ");
+                            }
                             break;
                         }
-                        case SEARCH: {
-                            searchEmployee();
+                        case SEARCH: { //BINARY SEARCH method - Divide and Conquer
+                            sortList(); //Start accessing sorted list (Insert Method) for a better result
+                            System.out.println("Enter name to search: ");
+                            scanner.nextLine();
+                            String nameSearch = scanner.nextLine();
+
+                            // Binary search logic
+                            int index = searchEmployee(nameSearch, 0, ListEmployee.size() - 1);
+
+                            //Based on the kB input will check the list - Divide and Conquer
+                            if (index != -1) {
+                                Employee searchResult = ListEmployee.get(index);
+                                System.out.println(" * * * EMPLOYEE FOUND: * * * ");
+                                System.out.println("Name: " + searchResult.getName());
+                                System.out.println("Department: " + searchResult.getDepartment());
+                                System.out.println("Function: " + searchResult.getPosition());
+
+                            } else {
+                                System.out.println("*** Employee not found! ***");
+
+                            }
                             break;
+
                         }
                         case ADD: {
                             addEmployee();
@@ -153,7 +181,7 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         list.set(j + 1, employeeSort);
     }
 
-    // INSERTION SORT METHOD
+    // INSERTION SORT METHOD 
     public static void sortList() {
 
         //Validation for EMPTY list - error message
@@ -162,19 +190,41 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
             return;
         }
 
-        //Access and display the ListEmployee (sorted format) 
+        //Access and sort the ListEmployee  
         insertionSort(ListEmployee, ListEmployee.size());
-        System.out.println("Sorted Employees:");
 
-        /*Looping will get the sorted list from InsertionSort Method and return,
-        line by line, the first 20 names.*/ 
-        for (int i = 0; i < Math.min(20, ListEmployee.size()); i++) {
-            System.out.println((1 + i) + ". " + ListEmployee.get(i));
-            System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - ");
-        }
     }
 
-    public static void searchEmployee() {
+    //BINARY SEARCH - Divide and Conquer
+    public static int searchEmployee(String key, int start, int end) {
+
+        boolean found;
+        int middle = 0;
+        found = false;
+
+        while ((start <= end) && (found == false)) {
+            middle = (start + end) / 2;
+
+            //From the arrayList
+            Employee midEmployee = ListEmployee.get(middle);
+
+            //The algorithm break down the problem into smaller non-overlapping problems. 
+            int result = ((Comparable) midEmployee.getName()).compareTo(key);
+
+            if (((Comparable) midEmployee.getName()).compareTo(key) == 0) {
+                found = true;
+
+            } else if (((Comparable) midEmployee.getName()).compareTo(key) < 0) {
+                start = middle + 1;
+            } else {
+                end = middle - 1;
+            }
+        }
+        if (found == true) {
+            return middle;
+        } else {
+            return -1;
+        }
 
     }
 
