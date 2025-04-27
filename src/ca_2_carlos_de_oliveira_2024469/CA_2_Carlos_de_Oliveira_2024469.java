@@ -24,10 +24,17 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         EXIT
     }
 
-    //Scanner fixed as a static method - will be used multiple times. 
+// Array List | static method to fixed the file name and list the applicants
+    static List<Employee> ListEmployee = new ArrayList<>();
+
+//Scanner fixed as a static method - will be used multiple times. 
     static Scanner scanner = new Scanner(System.in);
 
+//Random method fixed as a static method - will be used multiple times
+    static Random random = new Random();
+
     public static void main(String[] args) {
+        loadFile();
 
         //MENU - user will be required to select from a number of options
         int menuOpt = 0;
@@ -37,7 +44,7 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
             System.out.println("*** WELCOME TO TECH COMP APP *** ");
             System.out.println("Select an option in our MENU:");
 
-            //Will display the entired ENUM (length) formated with a number and space before the tittle. 
+            //Will display the entired ENUM (length), formated with a number and space before the option "1. ...". 
             for (int i = 0; i < Menu.values().length; i++) {
                 System.out.println((1 + i) + ". " + Menu.values()[i]);
             }
@@ -69,7 +76,7 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
                             break;
                         }
                         case GENERATE: {
-                            RandomEmployee();
+                            randomEmployee();
                             break;
                         }
                         case EXIT: {
@@ -91,4 +98,42 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         } while (menuOpt != 5);
     }
 
-}
+    public static void loadFile() {
+        String fileName = "Applicants_Form.txt";
+        try (Scanner fileRead = new Scanner(new File(fileName))) {
+            while (fileRead.hasNextLine()) {
+                String name = fileRead.nextLine().trim();
+                if (!name.isEmpty()) {
+                    Function jobRole = Function.values()[random.nextInt(Function.values().length)];
+                    Department dept = Department.values()[random.nextInt(Department.values().length)];
+                    ListEmployee.add(new Employee(name, jobRole, dept));
+                }
+            }
+            System.out.println("File read succesfully");
+        } catch (Exception e) {
+            System.out.println("File not found.");
+        }
+    }
+        
+        public static void sortList() {
+        
+        }
+        
+        public static void searchEmployee() {
+        
+        }
+        
+        public static void addEmployee() {
+        
+        }
+        
+        public static void randomEmployee() {
+        
+        }
+        
+
+    }
+
+ 
+    
+
