@@ -41,8 +41,11 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
 
         //Looping will display the Menu until the user select the EXIT option
         do { //Present the menu for the user.
-            System.out.println("*** WELCOME TO TECH COMP APP *** ");
+            System.out.println("*                              *   ");
+            System.out.println("**  WELCOME TO TECH COMP APP  ** ");
+            System.out.println("*** * * * * * *  * * * * * * *** ");
             System.out.println("Select an option in our MENU:");
+            System.out.println("* * * * * * * * * * * * * * * *");
 
             //Will display the entired ENUM (length), formated with a number and space before the option "1. ...". 
             for (int i = 0; i < Menu.values().length; i++) {
@@ -123,9 +126,52 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
             System.out.println("File not found.");
         }
     }
-    
+
+    // RECURSIVE INSERTION SORT METHOD
+    public static void insertionSort(List<Employee> list, int n) {
+
+        //If list retun 0, means that it´s already sorted or have just one element. 
+        if (n <= 1) {
+            return;
+        }
+
+        // Sort first n-1 element
+        insertionSort(list, n - 1);
+
+        //Insert last element at the correct position
+        //in sorted array 
+        Employee employeeSort = list.get(n - 1);
+        int j = n - 2;
+
+        /*Move elements one position ahead inside the array when greater than the key. */
+        while (j >= 0 && list.get(j).getName().compareToIgnoreCase(employeeSort.getName()) > 0) {
+            list.set(j + 1, list.get(j));
+            j--;
+        }
+
+        //Driver method
+        list.set(j + 1, employeeSort);
+    }
+
+    // INSERTION SORT METHOD
     public static void sortList() {
 
+        //Validation for EMPTY list - error message
+        if (ListEmployee.isEmpty()) {
+            System.out.println("Employee list is EMPTY!");
+            return;
+        }
+
+        //Access and display the ListEmployee (sorted format) 
+        insertionSort(ListEmployee, ListEmployee.size());
+        System.out.println("Sorted Employees:");
+
+        /*Looping will get the sorted list from InsertionSort Method and return,
+        line by line, the first 20 names.*/ 
+        for (int i = 0; i < Math.min(20, ListEmployee.size()); i++) {
+            System.out.println((1 + i) + ". " + ListEmployee.get(i));
+            System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - ");
+        }
     }
 
     public static void searchEmployee() {
