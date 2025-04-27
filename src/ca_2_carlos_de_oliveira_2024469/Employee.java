@@ -16,10 +16,10 @@ public class Employee {
     private Function position;
     private Department department;
 
-    public Employee(String name, Function position, Department department) {
+    public Employee(String name, Department department, Function position) {
         this.name = name;
-        this.position = position;
         this.department = department;
+        this.position = position;
     }
 
 //Will return a name from the list, as a String;

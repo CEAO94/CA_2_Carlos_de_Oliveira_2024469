@@ -103,6 +103,7 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
 
                         }
                         case ADD: {
+                            scanner.nextLine();
                             addEmployee();
                             break;
                         }
@@ -144,7 +145,7 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
                     Department dept = Department.values()[random.nextInt(Department.values().length)];
 
                     // Will read/add to the ArrayList
-                    ListEmployee.add(new Employee(name, jobRole, dept));
+                    ListEmployee.add(new Employee(name, dept, jobRole));
                 }
             }
             System.out.println("File read succesfully");
@@ -228,12 +229,62 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
 
     }
 
+    //METHOD TO ADD a new employee to the list
     public static void addEmployee() {
+
+        //Give the user the keyboard to enter a name
+        System.out.println("Enter new employee name: ");
+        String newEmployee = scanner.nextLine().trim();
+
+        //Loop throught the Department ENUM to display available departments
+        System.out.println("Available Departments: ");
+        for (int i = 0; i < Department.values().length; i++) {
+            System.out.println((i + 1) + ". " + Department.values()[i]);
+        }
+        //Get the user choice for the department. 
+        int departChoice = getIntInput("Select department: ", 1, Department.values().length);
+
+        //Loop throught the Function/Positions ENUM to display available job tittles.
+        System.out.println("Available functions:");
+        for (int i = 0; i < Function.values().length; i++) {
+            System.out.println((i + 1) + ". " + Function.values()[i]);
+        }
+        //Get the user choice for the job role/position. 
+        int roleChoice = getIntInput("Select Function: ", 1, Function.values().length);
+
+        //Create a new Employee object with the collected information
+        Employee newEmp = new Employee(newEmployee, Department.values()[departChoice - 1], Function.values()[roleChoice - 1]);
+
+        //Add the new Employee to the Array List and display the result. 
+        ListEmployee.add(newEmp);
+        System.out.println("Employee added: " + newEmp);
 
     }
 
     public static void randomEmployee() {
 
+    }
+
+    // SCANNER INPUT METHOD 
+    //Allow to manipulate the input (scanner) and manage the enum options for ADD
+    public static int getIntInput(String msg, int min, int max) {
+        int input = -1;
+        
+        //Looping for min and max, based on the enum lenght. 
+        while (input < min || input > max) {
+            System.out.println(msg);
+        
+            //If a valid input, user will have the Keyboard to select the next option.
+            //Else, system will return a error message
+            if (scanner.hasNextInt()) {
+                input = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                System.out.println("Invalid input. Please, select a valid number.");
+                scanner.nextLine();
+            }
+        }
+        return input;
     }
 
 }
