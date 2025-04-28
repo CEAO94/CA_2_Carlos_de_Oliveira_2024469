@@ -261,19 +261,36 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
 
     }
 
+    //GENERATE RAMDOM PEOPLE Method
+    //Implement mechanism to generate individuals and assign valid function and department
     public static void randomEmployee() {
-
+        //Create a String to store names
+        String[] randomNames = {"Carlos de Oliveira", "Patricia Victoria", };
+        
+        //Generate a random index to select a name from the array
+        String name = randomNames[random.nextInt(randomNames.length)];
+        
+        //Randomly select a department and a job function from the DEPARTMENT and FUNCTION Enum
+        Department departm = Department.values()[random.nextInt(Department.values().length)];
+        Function role = Function.values()[random.nextInt(Function.values().length)];
+        
+        //Create a new employee based on the generated name, deparment and function associate. 
+        Employee randomEmp = new Employee(name, departm, role);
+        
+        //Add the randomly new Employee to the ListEmployee
+        ListEmployee.add(randomEmp);
+        System.out.println("Rampom Employee: " + randomEmp);
     }
 
     // SCANNER INPUT METHOD 
     //Allow to manipulate the input (scanner) and manage the enum options for ADD
     public static int getIntInput(String msg, int min, int max) {
         int input = -1;
-        
+
         //Looping for min and max, based on the enum lenght. 
         while (input < min || input > max) {
             System.out.println(msg);
-        
+
             //If a valid input, user will have the Keyboard to select the next option.
             //Else, system will return a error message
             if (scanner.hasNextInt()) {
