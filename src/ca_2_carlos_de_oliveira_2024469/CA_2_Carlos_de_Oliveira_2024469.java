@@ -24,13 +24,14 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         EXIT
     }
 
-// Array List | static method to fixed the file name and list the applicants
+// Array List | static method to fixed/store the applicants
     static List<Employee> ListEmployee = new ArrayList<>();
 
-//Scanner fixed as a static method - will be used multiple times. 
+//Scanner fixed as a static method - will be used multiple times.
+//Reading user input
     static Scanner scanner = new Scanner(System.in);
 
-//Random method fixed as a static method - will be used multiple times
+//Random number generator instance method fixed as a static method 
     static Random random = new Random();
 
     public static void main(String[] args) {
@@ -39,46 +40,51 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         //MENU - user will be required to select from a number of options
         int menuOpt = 0;
 
-        //Looping will display the Menu until the user select the EXIT option
-        do { //Present the menu for the user.
+        //Loop to display the Menu until the user selects the EXIT option
+        do { //Present the menu to the user.
             System.out.println("*                              *   ");
             System.out.println("**  WELCOME TO TECH COMP APP  ** ");
             System.out.println("*** * * * * * *  * * * * * * *** ");
             System.out.println("Select an option in our MENU:");
             System.out.println("* * * * * * * * * * * * * * * *");
 
-            //Will display the entired ENUM (length), formated with a number and space before the option "1. ...". 
+            //Display the ENUM Menu, with corresponding number/option "1. ...". 
             for (int i = 0; i < Menu.values().length; i++) {
                 System.out.println((1 + i) + ". " + Menu.values()[i]);
             }
-            // User will be invited to enter an option from 1 to 5
+            //Prompt the user to enter their choice - from 1 to 5
             System.out.println("Enter your choice | n.º from 1 to 5: ");
 
-            // TRY/CATCH for exceptions | input needs to be a number between 1 and 5 to be validated. 
+            // TRY/CATCH block and handle exceptions | input needs to be a number between 1 and 5 to be validated. 
             try {
 
-                //Gives the user the keyboard to enter values with scanner. 
+                //Gives the user the keyboard and return input using the scanner. 
                 menuOpt = scanner.nextInt();
 
-                //Input needs to be a number between 1 and 5 to be validated.
+                //Validate if the input is within the valid range - between 1 and 5.
                 if (menuOpt >= 1 && menuOpt < 6) {
 
-                    //Based on the entered value, will acess the array (enum) to return one of the options
+                    //Based on the entered value, access the corresponding choice 
                     Menu option = Menu.values()[menuOpt - 1];
                     switch (option) {
-                        case SORT: { //INSERT SORT to sort the list
-                            sortList(); //Sorted and limited to 20 first employees. 
+                        
+                        //INSERT SORT 
+                        case SORT: { 
+                            sortList(); //Sort the list. 
 
                             System.out.println("Employee list sorted (First 20):");
+                            
                             /*Looping will get the sorted list from InsertionSort Method and return,
-                            line by line, the first 20 names.*/
+                            line by line, the first 20 names (department and position randonly).*/
                             for (int i = 0; i < Math.min(20, ListEmployee.size()); i++) {
                                 System.out.println((1 + i) + ". " + ListEmployee.get(i));
                                 System.out.println(" - - - - - - - - - - - - - - - - - - - - - - - - - ");
                             }
                             break;
                         }
-                        case SEARCH: { //BINARY SEARCH method - Divide and Conquer
+                        
+                        //BINARY SEARCH - Divide and Conquer
+                        case SEARCH: { 
                             sortList(); //Start accessing sorted list (Insert Method) for a better result
                             System.out.println("Enter name to search: ");
                             scanner.nextLine();
@@ -88,6 +94,8 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
                             int index = searchEmployee(nameSearch, 0, ListEmployee.size() - 1);
 
                             //Based on the kB input will check the list - Divide and Conquer
+                            /* allow users to search for a person by name from the sorted list 
+                            and return the following details, such as Function and Department */
                             if (index != -1) {
                                 Employee searchResult = ListEmployee.get(index);
                                 System.out.println(" * * * EMPLOYEE FOUND: * * * ");
@@ -102,15 +110,20 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
                             break;
 
                         }
+                        //ADD - Allow for New User Input (Name, Manager Choice, and Department):
                         case ADD: {
                             scanner.nextLine();
                             addEmployee();
                             break;
                         }
+                        
+                        //RANDOM - Generate Random People with Coach Types and Teams
                         case GENERATE: {
                             randomEmployee();
                             break;
                         }
+                        
+                        //EXIT MENU OPTION
                         case EXIT: {
                             System.out.println("Exiting program!");
                             break;
@@ -159,7 +172,7 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
     // RECURSIVE INSERTION SORT METHOD
     public static void insertionSort(List<Employee> list, int n) {
 
-        //If list retun 0, means that it´s already sorted or have just one element. 
+        //If list retun 0 or 1, means that it´s already sorted or have just one element. 
         if (n <= 1) {
             return;
         }
@@ -167,11 +180,11 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         // Sort first n-1 element
         insertionSort(list, n - 1);
 
-        //Insert last element at the correct position
-        //in sorted array 
+        //Insert last element at the correct position  
         Employee employeeSort = list.get(n - 1);
         int j = n - 2;
 
+        //sort the Applicants_Form.txt list in alphabetical order
         /*Move elements one position ahead inside the array when greater than the key. */
         while (j >= 0 && list.get(j).getName().compareToIgnoreCase(employeeSort.getName()) > 0) {
             list.set(j + 1, list.get(j));
@@ -209,8 +222,10 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
             //From the arrayList
             Employee midEmployee = ListEmployee.get(middle);
 
-            //The algorithm break down the problem into smaller non-overlapping problems. 
-            int result = ((Comparable) midEmployee.getName()).compareTo(key);
+            //The algorithm break down the problem into smaller non-overlapping problems.
+            /*Looping will get the search key of the search range as input and calculates from the middle index.
+            If the middle element is less than the key, the search continues in the right half.*/
+            int result = midEmployee.getName().compareToIgnoreCase(key);
 
             if (((Comparable) midEmployee.getName()).compareTo(key) == 0) {
                 found = true;
@@ -223,19 +238,24 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
         }
         if (found == true) {
             return middle;
-        } else {
+        } 
+        //If the key is not found, it returns -1
+        else {
             return -1;
         }
 
     }
 
     //METHOD TO ADD a new employee to the list
+    //Allow for New User Input (Name, Manager Choice, and Department)
     public static void addEmployee() {
 
         //Give the user the keyboard to enter a name
         System.out.println("Enter new employee name: ");
         String newEmployee = scanner.nextLine().trim();
 
+        /*Users can enter a name, choose a valid function and 
+        select an existing Department*/
         //Loop throught the Department ENUM to display available departments
         System.out.println("Available Departments: ");
         for (int i = 0; i < Department.values().length; i++) {
@@ -265,18 +285,18 @@ public class CA_2_Carlos_de_Oliveira_2024469 {
     //Implement mechanism to generate individuals and assign valid function and department
     public static void randomEmployee() {
         //Create a String to store names
-        String[] randomNames = {"Carlos de Oliveira", "Patricia Victoria", };
-        
+        String[] randomNames = {"David Gilmour", "Roger Waters", "Syd Barret", "Richard Wright", "Nick Mason", "Bob Klose"};
+
         //Generate a random index to select a name from the array
         String name = randomNames[random.nextInt(randomNames.length)];
-        
+
         //Randomly select a department and a job function from the DEPARTMENT and FUNCTION Enum
         Department departm = Department.values()[random.nextInt(Department.values().length)];
         Function role = Function.values()[random.nextInt(Function.values().length)];
-        
+
         //Create a new employee based on the generated name, deparment and function associate. 
         Employee randomEmp = new Employee(name, departm, role);
-        
+
         //Add the randomly new Employee to the ListEmployee
         ListEmployee.add(randomEmp);
         System.out.println("Rampom Employee: " + randomEmp);

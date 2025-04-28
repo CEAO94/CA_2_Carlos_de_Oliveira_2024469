@@ -13,9 +13,9 @@ package ca_2_carlos_de_oliveira_2024469;
 public class Employee {
 
     private String name;
-    private Function position;
     private Department department;
-
+    private Function position;
+    
     public Employee(String name, Department department, Function position) {
         this.name = name;
         this.department = department;
@@ -39,6 +39,6 @@ public class Employee {
 
 //Will display the ramdom result, with "Name" follow by department and job role. 
     public String toString() {
-        return name + "|" + department + "|" + position + ";";
+        return "Employee name: " + name + " | Department: " + department + " | Function: " + position + ";";
     }
 }
